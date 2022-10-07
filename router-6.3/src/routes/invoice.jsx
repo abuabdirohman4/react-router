@@ -4,7 +4,6 @@ import { getInvoice } from "../data";
 export default function Invoice() {
   let params = useParams();
   let invoice = getInvoice(parseInt(params.invoiceId, 10));
-  console.log(invoice)
   //   return <h2>Invoice: {params.invoiceId}</h2>;
   return (
     <main style={{ padding: "1rem" }}>
