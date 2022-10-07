@@ -1,10 +1,12 @@
-import { useParams } from "react-router-dom";
-import { getInvoice } from "../data";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { getInvoice, deleteInvoice } from "../data";
 
 export default function Invoice() {
+  let navigate = useNavigate();
+  let location = useLocation();
   let params = useParams();
   let invoice = getInvoice(parseInt(params.invoiceId, 10));
-  //   return <h2>Invoice: {params.invoiceId}</h2>;
+
   return (
     <main style={{ padding: "1rem" }}>
       <h2>Total Due: {invoice.amount}</h2>
@@ -12,6 +14,17 @@ export default function Invoice() {
         {invoice.name}: {invoice.number}
       </p>
       <p>Due Date: {invoice.due}</p>
+      <p>
+        <button
+          onClick={() => {
+            deleteInvoice(invoice.number);
+            // console.log("location.search : ", location.search);
+            navigate("/invoices" + location.search);
+          }}
+        >
+          Delete
+        </button>
+      </p>
     </main>
   );
 }
